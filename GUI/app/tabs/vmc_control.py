@@ -35,10 +35,10 @@ class VMCControlWidget(BaseTabWidget):
         led_layout = QtWidgets.QVBoxLayout()
         led_groupbox.setLayout(led_layout)
 
-        red_led_button = QtWidgets.QPushButton("Red")
-        red_led_button.setStyleSheet("background-color: red")
-        red_led_button.clicked.connect(lambda: self.set_led((255, 255, 0, 0)))  # type: ignore
-        led_layout.addWidget(red_led_button)
+        purple_led_button = QtWidgets.QPushButton("Purple")
+        purple_led_button.setStyleSheet("background-color: purple")
+        purple_led_button.clicked.connect(lambda: self.set_led((0, 100, 0, 50)))  # type: ignore
+        led_layout.addWidget(purple_led_button)
 
         green_led_button = QtWidgets.QPushButton("Green")
         green_led_button.setStyleSheet("background-color: green")
@@ -90,6 +90,10 @@ class VMCControlWidget(BaseTabWidget):
             servo_close_button = QtWidgets.QPushButton("Close")
             servo_close_button.clicked.connect(functools.partial(self.set_servo, i, "close"))  # type: ignore
             servo_layout.addWidget(servo_close_button)
+            
+            servo_open_two_button = QtWidgets.QPushButton("Open Servo 1 and 2")
+            servo_open_two_button.clicked.connect(functools.partial(self.set_servo, i, "open servo 1 and 2")) #type: ignore
+            servo_layout.addWidget(servo_open_two_button)
 
             servo_label = QtWidgets.QLabel()
             servo_label.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
@@ -113,7 +117,7 @@ class VMCControlWidget(BaseTabWidget):
 
         # layout.addWidget(reset_groupbox, 3, 3, 1, 1)
 
-    def set_servo(self, number: int, action: Literal["open", "close"]) -> None:
+    def set_servo(self, number: int, action: Literal["open", "close", "open servo 1 and 2"]) -> None:
         """
         Set a servo state
         """
@@ -125,13 +129,16 @@ class VMCControlWidget(BaseTabWidget):
         if action == "open":
             text = "Opened"
             color = "blue"
-        else:
+        elif:
             text = "Closed"
             color = "chocolate"
+        elif:
+            text = "Opened Servo 1 and 2"
+            color = "purple"
 
         self.servo_labels[number].setText(wrap_text(text, color))
 
-    def set_servo_all(self, action: Literal["open", "close"]) -> None:
+    def set_servo_all(self, action: Literal["open", "close", "open servo 1 and 2"]) -> None:
         """
         Set all servos to the same state
         """
