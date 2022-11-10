@@ -91,10 +91,6 @@ class VMCControlWidget(BaseTabWidget):
             servo_close_button.clicked.connect(functools.partial(self.set_servo, i, "close"))  # type: ignore
             servo_layout.addWidget(servo_close_button)
             
-            servo_open_two_button = QtWidgets.QPushButton("Open Servo 1 and 2")
-            servo_open_two_button.clicked.connect(functools.partial(self.set_servo, i, "open servo 1 and 2")) #type: ignore
-            servo_layout.addWidget(servo_open_two_button)
-
             servo_label = QtWidgets.QLabel()
             servo_label.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignVCenter)
             servo_layout.addWidget(servo_label)
@@ -117,7 +113,7 @@ class VMCControlWidget(BaseTabWidget):
 
         # layout.addWidget(reset_groupbox, 3, 3, 1, 1)
 
-    def set_servo(self, number: int, action: Literal["open", "close", "open servo 1 and 2"]) -> None:
+    def set_servo(self, number: int, action: Literal["open", "close"]) -> None:
         """
         Set a servo state
         """
@@ -129,16 +125,13 @@ class VMCControlWidget(BaseTabWidget):
         if action == "open":
             text = "Opened"
             color = "blue"
-        elif:
+        else:
             text = "Closed"
             color = "chocolate"
-        elif:
-            text = "Opened Servo 1 and 2"
-            color = "purple"
 
         self.servo_labels[number].setText(wrap_text(text, color))
 
-    def set_servo_all(self, action: Literal["open", "close", "open servo 1 and 2"]) -> None:
+    def set_servo_all(self, action: Literal["open", "close"]) -> None:
         """
         Set all servos to the same state
         """
